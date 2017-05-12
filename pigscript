@@ -1,0 +1,9 @@
+DEFINE XPath org.apache.pig.piggybank.evaluation.xml.XPath(); 
+A = load '/home/acadgild/sample.xml' using org.apache.pig.piggybank.storage.XMLLoader('book') as (x:chararray);
+B = FOREACH A GENERATE TRIM(XPath(x, 'book/@id')) AS book_id,
+TRIM(XPath(x, 'book/author')) AS author,
+TRIM(XPath(x, 'book/title')) AS title,
+TRIM(XPath(x, 'book/genre')) AS genre,
+TRIM(XPath(x, 'book/price')) AS price,
+TRIM(XPath(x, 'book/description')) AS description;
+ STORE B INTO '/home/acadgild/Desktop/pig1' using org.apache.pig.piggybank.storage.CSVExcelStorage();
